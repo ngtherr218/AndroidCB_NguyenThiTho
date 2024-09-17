@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                             new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CODE);
                 } else {
                     // Nếu đã có quyền, thực hiện cuộc gọi
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "650551234"));
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0336624365"));
                     startActivity(intent);
                 }
             }
@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
             // Kiểm tra nếu quyền đã được cấp
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Quyền đã được cấp, thực hiện cuộc gọi
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0336624365"));
-                startActivity(intent);
+
             } else {
                 // Quyền bị từ chối
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {

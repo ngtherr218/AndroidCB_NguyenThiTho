@@ -1,7 +1,9 @@
 package com.example.cameraapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
@@ -34,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         initControl();
 
-        requestCameraPermission();
+
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                requestCameraPermission();
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     activityResultLauncher.launch(intent);
@@ -70,6 +74,23 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }
     }
+    private void showPermissionDeniedDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Quyền bị từ chối")
+                .setMessage("Bạn cần cấp quyền trong cài đặt để tiếp tục sử dụng tính năng này.")
+                .setPositiveButton("Đi tới Cài đặt", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Mở cài đặt ứng dụng để người dùng cấp quyền thủ công
+                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @Nullable String[] permissions, @Nullable int[] grantResults) {
@@ -79,8 +100,14 @@ public class MainActivity extends AppCompatActivity {
                 // Permission granted
             } else {
                 // Permission denied
-                Toast.makeText(this, "Camera permission is required to use the camera", Toast.LENGTH_SHORT).show();
-            }
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+                    // Người dùng đã chọn "Don't ask again"
+                    // Hiển thị thông báo hoặc chuyển họ đến cài đặt ứng dụng
+                    showPermissionDeniedDialog();
+                } else {
+                    // Quyền bị từ chối nhưng không phải là "Don't ask again"
+                    // Xử lý theo cách bình thường
+                }}
         }
     }
 }
