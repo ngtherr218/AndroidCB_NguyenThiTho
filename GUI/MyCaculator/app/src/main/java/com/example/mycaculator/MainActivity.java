@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bt_equal.setOnClickListener(new View.OnClickListener() {
+        bt_equal.setOnClickListener(new  View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String expression = ed_result_display.getText().toString();
@@ -152,6 +152,10 @@ public class MainActivity extends AppCompatActivity {
                     double result = exp.evaluate();
                     ed_curent_caculation_display.setText(expression);
                     ed_result_display.setText(String.valueOf(result));
+
+                    ed_result_display.scrollTo(0, 0);
+
+
                     // Đặt cờ để biết rằng kết quả đã được tính toán
                     isResultDisplayed = true;
                     ed_curent_caculation_display.post(() -> {
@@ -161,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } catch (Exception e) {
+                    isResultDisplayed = true;
                     ed_result_display.setText("Error");
                 }
             }

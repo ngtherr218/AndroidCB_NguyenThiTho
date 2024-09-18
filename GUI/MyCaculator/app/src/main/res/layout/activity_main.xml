@@ -27,6 +27,7 @@
 
     <TextView
         android:id="@+id/ed_result_display"
+        android:background="#803434"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="none"
