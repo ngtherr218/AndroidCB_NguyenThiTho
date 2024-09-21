@@ -5,6 +5,7 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -149,12 +150,17 @@ public class MainActivity extends AppCompatActivity {
                 String expression = ed_result_display.getText().toString();
                 try {
                     Expression exp = new ExpressionBuilder(expression).build();
-                    double result = exp.evaluate();
+
                     ed_curent_caculation_display.setText(expression);
-                    ed_result_display.setText(String.valueOf(result));
 
-                    ed_result_display.scrollTo(0, 0);
+                    Double result = exp.evaluate();
+                    String resultString = String.valueOf(result);
 
+                    if(result == result.intValue()){
+                        resultString = result.intValue() + "";
+                    }
+
+                    ed_result_display.setText(resultString);
 
                     // Đặt cờ để biết rằng kết quả đã được tính toán
                     isResultDisplayed = true;
@@ -167,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     isResultDisplayed = true;
                     ed_result_display.setText("Error");
+                    Log.e("TAG", "onClick: " + e.getMessage() );
                 }
             }
         });
