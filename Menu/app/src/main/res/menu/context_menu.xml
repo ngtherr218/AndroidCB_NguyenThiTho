@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="Thêm"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/detail"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="Chi tiết"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/delete"
+        android:icon="@android:drawable/ic_delete"
+        android:title="Xóa"
+        app:showAsAction="collapseActionView|withText" />
+
+</menu>

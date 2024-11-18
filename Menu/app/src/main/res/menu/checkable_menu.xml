@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/send"
+            android:checkable="true"
+            android:icon="@android:drawable/ic_menu_send"
+            android:title="Send Email" />
+        <item
+            android:id="@+id/receive"
+            android:checkable="true"
+            android:icon="@android:drawable/ic_notification_clear_all"
+            android:title="Receive Notification" />
+    </group>
+</menu>
